@@ -1,7 +1,7 @@
 {
-  "name": "@as2ng/metatransactions",
+  "name": "@as2ng/interchange",
   "version": "0.0.19",
-  "description": "A minimal approach for meta-transaction support.",
+  "description": "A minimal approach for interchange-transaction support.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "directories": {
