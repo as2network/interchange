@@ -1,12 +1,6 @@
-# A Minimal Meta-Transaction Library
+# Interchange Transaction Hub
 
-Ethereum transaction's intertwine the identity of who paid for the transaction (gas.payer) and who
-wants to execute a command (msg.sender). As a result, it is **not straight forward for Alice to pay
-the gas fee on behalf of Bob** who wants to execute a command in a smart contract. Until it is fixed
-at the platform level, then Alice and Bob must adopt a meta-transaction standard to support this
-functionality (e.g. transaction infrastructure as a service in a non-custodial manner).
-
-There are two approaches:
+## Overview
 
 - **Proxy contract:** Every user has a proxy contract and all transactions are sent via the proxy
   contract. It is compatible with all existing smart contracts.
@@ -14,32 +8,15 @@ There are two approaches:
   target contract must support the \_msgSender() standard. It preserves the user's signing key
   address as their identity.
 
-Our meta-transaction library focuses on both approaches and we hope it benefits the community in the
-following way:
-
-- **A Universal Forwarder**: Our RelayHub.sol can be used for the \_msgSender() standard.
-- **Minimal wallet contract**: Our proxy contract only requires 67k gas to deploy & 26k gas per
+* **A Universal Forwarder**: Our RelayHub.sol can be used for the \_msgSender() standard.
+* **Minimal wallet contract**: Our proxy contract only requires 67k gas to deploy & 26k gas per
   transaction. It is minimal code and supports batching transactions. As well, its replay protection
   supports out of order-transactions (bitflip) and concurrent transactions (multinonce).
-- **GnosisSafe**: We have incorporated [GnosisSafe](https://github.com/gnosis/safe-contracts) and
+* **GnosisSafe**: We have incorporated [GnosisSafe](https://github.com/gnosis/safe-contracts) and
   our library tracks the replay protection nonce such that it is meta-transaction friendly. It is an
   audited wallet contract that is increasingly widely used.
 
-**Our repository is a protocol and relay-independent approach** that as2 project can adopt. We hope
-it will make it easier for projects to tap into third party relayer APIs and to avoid
-re-implementing the wheel for reliable transaction infrastructure.
-
-# Getting started
-
-We have put together a guide for the universal forwarder, proxy account and gnosis safe:
-
-- Universal Forwarder: Tutorial to be completed soon.
-- [GnosisSafe Forwarder](./gnosisSafe.md#gnosis-safe-forwarder): An audited wallet contract
-  implementation by Gnosis and we follow the nonce signature path. Thus it is meta-transaction safe.
-- [ProxyAccount Forwarder](./proxyAccounts.md#proxy-account-forwarder): Our own wallet contract
-  implementation (not audited) with flexible replay protection and minimal overhead.
-
-Our unit tests evaluate the gas costs for the wallet contracts:
+## Wallet Support
 
 | Name               | Deploy Wallet | 1st Transaction | 2nd Transaction | 10 Transactions (AVG) | 100 Transactions (AVG) | Meta-deployment Echo Contract |
 | ------------------ | ------------- | --------------- | --------------- | --------------------- | ---------------------- | ----------------------------- |
@@ -70,3 +47,7 @@ transactions
 echo contract. Each wallet contract delegate calls into a global deployer and the echo contract is
 deployed using CREATE2. We recommend deploying the contract and then calling an init() method (to
 avoid as2 msg.sender issues during deployment).
+
+## License
+
+GPL-3.0
