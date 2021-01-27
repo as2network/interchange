@@ -45,8 +45,8 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "3.0.0-beta.0",
-    "contractshark-test-utils/test-utils": "^0.1.36",
-    "contractshark-test-utils/utils": "^0.1.39",
+    "contractshark-test-utils": "^0.1.36",
+    "contractshark-test-lib": "^0.1.39",
     "ethers": "^4.0.43"
   }
 }
